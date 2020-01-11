@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Motograffiti</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+  </head>
+
+  <body>
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>" role="alert"><%= value %></div>
+    <% end %>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-transparent">
+      <div class="container">
+        <%= link_to root_path do %>
+          <span><%= image_tag "logo.png", class: "navbar-brand" %></span>
+        <% end %>
+        <ul class="nav navbar-nav navbar-right">
+          <% if logged_in? %>
+            <li>
+              <%= link_to "#" do %>
+                <p><%= current_user.name %></p>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to "#" do %>
+                <p>お気に入り一覧</p>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to topics_path do %>
+                <p>投稿一覧</p>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to new_topic_path do %>
+                <p>投稿する</p>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to logout_path, method: :delete do %>
+                <p>ログアウト</p>
+              <% end %>
+            </li>
+          <% else %>
+            <li>
+              <%= link_to new_user_path do %>
+                <p>ユーザー登録</p>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to login_path do %>
+                <p>ログイン</p>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
+    
+    <%= yield %>
+    <script>
+      $(function(){
+        $(".alert").fadeOut(5000);
+      });
+    </script>
+  </body>
+</html>

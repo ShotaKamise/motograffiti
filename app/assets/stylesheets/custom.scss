@@ -1,0 +1,226 @@
+
+
+.text-black {
+  color: black;
+}
+
+.text-white {
+  color: white;
+  font-weight: bold;
+}
+
+.btn-white {
+  color: #fff;
+  border: 1px solid #fff;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-size: 20px;
+  background-color: rgba(0,0,0,0.0);
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+.top-hero-wrapper {
+  width: 100vw;
+  height: 100vh;
+  background-image: url('top.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #464646;
+}
+
+.top-hero-container {
+  padding-top: 220px;
+  h1 {
+    font-size: 60px;
+    font-family: "impact";
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    margin-bottom: 60px;
+    font-weight: 100;
+  }
+}
+
+.form-control {
+  height: 45px;
+}
+
+.users-new-wrapper {
+  width: 100vw;
+  height: 100vh;
+  background-image: url('signup_login.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #464646;
+
+  .users-new-container {
+    padding-top: 220px;
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.alert {
+  margin-bottom: 0px;
+  position: fixed;
+  width: 100%;
+  z-index: 10000;
+}
+
+.navbar-transparent {
+  margin-bottom: 0px;
+  background-color: rgba(255,255,255,0.5);
+  a {
+    color: #fff !important;
+  }
+.navbar-brand {
+  padding: 0px;
+  margin-top: 8px;
+}
+
+  img {
+    height: 40px;
+  }
+  
+  .navbar-right p {
+    color: black;
+    font-size: 15px;
+    
+  }
+}
+
+.btn-black {
+  color: #565656;
+  border: 1px solid #565656;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-size: 20px;
+  background-color: rgba(0,0,0,0.0);
+
+  &:hover {
+    color: #565656;
+  }
+}
+
+.topic-new-wrapper {
+  padding-top: 220px;
+  background-image: url('signup_login.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #464646;
+}
+
+.topic-index-wrapper {
+  padding-top: 70px;
+  background-color: #fafafa;
+  .topic-index-single {
+    background-color: #fff;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: 30px;
+    border: 1px solid #e6ecf0;
+    border-radius: 3px;
+    .topic-author {
+      padding-right: 20px;
+      padding-left: 20px;
+    }
+    
+    .user-icon {
+      border-radius: 40%;
+      width: 60px;
+      height: 60px;
+    }
+    
+    .topic-text {
+      padding-right: 20px;
+      padding-left: 20px;
+      font-size: 20px;
+    }
+    
+    img {
+      margin-top: 10px;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+    
+    .topic-index-icon {
+      width: 35px;
+      height: 30px;
+      margin-left: 20px;
+    }
+  }
+}
+
+.like-btn {
+  width: 25px;
+  height: 30px;
+  font-size: 25px;
+  color: #808080;
+  margin-left: 20px;
+}
+
+.unlike-btn {
+  width: 25px;
+  height: 30px;
+  font-size: 25px;
+  color: #e54747;
+  margin-left: 20px;
+}
+
+.comments {
+  margin-left: 20px;
+  margin-right: 20px;
+  font-size: 15px;
+  
+  h4 {
+    border-bottom: 1px solid black;
+  }
+  
+  .comments-left {
+    margin-left: 20px;
+    margin-right: 5px;
+    float: left;
+    padding-top: 0px;
+    
+    .user-icon {
+      border-radius: 40%;
+      width: 60px;
+      height: 60px;
+    }
+  }
+  
+  .comment-contents {
+    padding-top: 8px;
+    
+    .comments-right {
+      float: right;
+    }
+    
+    li {
+      float: left;
+      list-style: none;
+      padding: 0px;
+    }
+    
+    .comment-date {
+      float: right;
+    }
+    
+    .comment-edit {
+      margin-right: 10px;
+    }
+  }
+  
+}
