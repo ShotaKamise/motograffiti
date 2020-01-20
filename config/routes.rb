@@ -15,4 +15,8 @@ Rails.application.routes.draw do
   post "/likes", to: "likes#create"
   delete "/likes", to: "likes#destroy"
   
+  get "follows/index"
+  post "/follows", to: "follows#create"
+  delete "/follows", to: "follows#destroy"
+  
 end

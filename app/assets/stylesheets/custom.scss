@@ -1,4 +1,6 @@
-
+.text-red {
+  color: red;
+}
 
 .text-black {
   color: black;
@@ -10,7 +12,7 @@
 }
 
 .btn-white {
-  color: #fff;
+  color: white;
   border: 1px solid #fff;
   padding-top: 15px;
   padding-bottom: 15px;
@@ -52,8 +54,6 @@
 }
 
 .users-new-wrapper {
-  width: 100vw;
-  height: 100vh;
   background-image: url('signup_login.png');
   background-position: center center;
   background-repeat: no-repeat;
@@ -62,7 +62,8 @@
   background-color: #464646;
 
   .users-new-container {
-    padding-top: 220px;
+    padding-top: 100px;
+    padding-bottom: 100px;
 
     .form-group {
       margin-bottom: 20px;
@@ -77,16 +78,23 @@
   z-index: 10000;
 }
 
-.navbar-transparent {
+.navbar {
   margin-bottom: 0px;
-  background-color: rgba(255,255,255,0.5);
+  background-color: rgb(200,200,200);
+  z-index: 999;
   a {
     color: #fff !important;
   }
-.navbar-brand {
-  padding: 0px;
-  margin-top: 8px;
-}
+  .navbar-brand {
+    padding: 0px;
+    margin-top: 8px;
+  }
+  .navbar-toggler-icon{
+    float: right;
+    background-color: rgb(100,100,100);
+    height: 50px;
+    width: 50px;
+  }
 
   img {
     height: 40px;
@@ -106,6 +114,7 @@
   padding-bottom: 15px;
   font-size: 20px;
   background-color: rgba(0,0,0,0.0);
+  font-weight: bold;
 
   &:hover {
     color: #565656;
@@ -113,7 +122,8 @@
 }
 
 .topic-new-wrapper {
-  padding-top: 220px;
+  padding-top: 100px;
+  padding-bottom: 100px;
   background-image: url('signup_login.png');
   background-position: center center;
   background-repeat: no-repeat;
@@ -121,6 +131,7 @@
   background-size: cover;
   background-color: #464646;
 }
+
 
 .topic-index-wrapper {
   padding-top: 70px;
@@ -133,8 +144,8 @@
     border: 1px solid #e6ecf0;
     border-radius: 3px;
     .topic-author {
-      padding-right: 20px;
-      padding-left: 20px;
+      padding-left: 10px;
+      padding-top: 15px;
     }
     
     .user-icon {
@@ -143,23 +154,20 @@
       height: 60px;
     }
     
+    p {
+      padding-top: 20px;
+    }
+    
     .topic-text {
-      padding-right: 20px;
-      padding-left: 20px;
       font-size: 20px;
     }
     
-    img {
+    .topic-image {
       margin-top: 10px;
       margin-bottom: 20px;
       width: 100%;
     }
     
-    .topic-index-icon {
-      width: 35px;
-      height: 30px;
-      margin-left: 20px;
-    }
   }
 }
 
@@ -168,7 +176,6 @@
   height: 30px;
   font-size: 25px;
   color: #808080;
-  margin-left: 20px;
 }
 
 .unlike-btn {
@@ -176,51 +183,66 @@
   height: 30px;
   font-size: 25px;
   color: #e54747;
-  margin-left: 20px;
 }
 
+.comment-icon {
+  width: 35px;
+  height: 30px;
+}
+
+
+
+
 .comments {
-  margin-left: 20px;
-  margin-right: 20px;
-  font-size: 15px;
+  margin-top: 8px;
   
   h4 {
     border-bottom: 1px solid black;
+    margin-left: 20px;
+    margin-right: 20px;
   }
   
-  .comments-left {
-    margin-left: 20px;
-    margin-right: 5px;
-    float: left;
-    padding-top: 0px;
-    
+  .container {
     .user-icon {
       border-radius: 40%;
-      width: 60px;
-      height: 60px;
+      width: 65px;
+      height: 65px;
+    }
+    
+    .row {
+      padding: 5px;
+    }
+    
+    .comment-contents {
+      padding-top: 5px;
+    }
+    
+  }
+  
+
+  li {
+    float: left;
+    list-style: none;
+    .edit {
+      padding-right: 8px;
     }
   }
   
-  .comment-contents {
-    padding-top: 8px;
-    
-    .comments-right {
-      float: right;
-    }
-    
-    li {
-      float: left;
-      list-style: none;
-      padding: 0px;
-    }
-    
-    .comment-date {
-      float: right;
-    }
-    
-    .comment-edit {
-      margin-right: 10px;
-    }
+}
+
+.user-show-wrapper {
+
+  .user-info {
+    background-color: red;
+  }  
+  .user_background {
+    height: 300px;
+    width: cover;
+    margin-top: 50px;
   }
-  
+  .user-icon {
+    border-radius: 40%;
+    width: 60px;
+    height: 60px;
+  }
 }

@@ -11,17 +11,18 @@
   </head>
 
   <body>
-    <% flash.each do |key, value| %>
-      <div class="alert alert-<%= key %>" role="alert"><%= value %></div>
-    <% end %>
-    <nav class="navbar navbar-default navbar-fixed-top navbar-transparent">
-      <div class="container">
-        <%= link_to root_path do %>
-          <span><%= image_tag "logo.png", class: "navbar-brand" %></span>
-        <% end %>
-        <ul class="nav navbar-nav navbar-right">
+    <nav class="navbar navbar-dark" >
+      <%= link_to root_path do %>
+        <span><%= image_tag "logo.png", class: "navbar-brand" %></span>
+      <% end %>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="ナビゲーションの切替">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
           <% if logged_in? %>
-            <li>
+            <li class="nav-item active">
               <%= link_to "#" do %>
                 <p><%= current_user.name %></p>
               <% end %>
@@ -42,6 +43,11 @@
               <% end %>
             </li>
             <li>
+              <%= link_to "#" do %>
+                <p>フォローユーザー</p>
+              <% end %>
+            </li>
+            <li>
               <%= link_to logout_path, method: :delete do %>
                 <p>ログアウト</p>
               <% end %>
@@ -59,9 +65,14 @@
             </li>
           <% end %>
         </ul>
+        <form class="form-inline my-2 my-md-0">
+          <input class="form-control" type="search" placeholder="検索..." aria-label="検索...">
+        </form>
       </div>
-    </nav>
-    
+  </nav>
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>" role="alert"><%= value %></div>
+    <% end %>
     <%= yield %>
     <script>
       $(function(){
