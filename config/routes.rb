@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :users
   resources :topics
   resources :comments
+  resources :relationships, only: [:create, :destroy]
   
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
@@ -15,8 +16,6 @@ Rails.application.routes.draw do
   post "/likes", to: "likes#create"
   delete "/likes", to: "likes#destroy"
   
-  get "follows/index"
-  post "/follows", to: "follows#create"
-  delete "/follows", to: "follows#destroy"
+  
   
 end

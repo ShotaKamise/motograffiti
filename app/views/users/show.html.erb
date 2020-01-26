@@ -1,26 +1,30 @@
 <div class="user-show-wrapper">
   <div class="container">
     <div class="row">
-      <div class="col-md-6">
-        <div class="user-info">
-          <% if @user.user_background %>
-            <%= image_tag @user.user_background.url, class: 'user_background' %>
+      <div class="col-md-8 mx-auto">
+        <div class="user-design">
+          <div class="col-md-12 mx-auto">
+            <% if @user.user_background %>
+              <%= image_tag @user.user_background.url, class: 'user_background' %>
+            <% else %>
+              <%= image_tag "icons/default.png", class: 'user_background' %>
+      　     <% end %>
+          </div>
+          <% if @user.image %>
+          　
           <% else %>
-            <%= image_tag "icons/default.png", class: 'user_background' %>
-      　   <% end %>
-      　   <%= link_to edit_user_path(id: current_user.id) do %>
-        　  <p>ユーザー編集</p>
-      　   <% end %>
+          　<%= image_tag '/helmet_icon.png', class: 'user-icon' %>
+          <% end %>
+          <% if current_user.id == params[:id] %>
+      　     <%= link_to edit_user_path(id: current_user.id) do %>
+        　     <p>ユーザー編集</p>
+      　     <% end %>
+          <% end %>
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6">
-          <% if @user.image %>
-          　<%= image_tag @user.image.url, class: 'user-icon' %>
-          <% else %>
-          　<%= image_tag 'helmet_icon.png', class: 'user-icon' %>
-          <% end %>
+      <div class="col-md-4 offset-md-4">
         <div class="recent_info">
           <% if @user.recent_info %>
             <%= @user.recent_info %>
@@ -31,28 +35,31 @@
       </div>
     </div>
   </div>
-  <div class="container">
-      <%= @topics.each do |topic| %>
-        <div class="row">
-          <div class="col-md-2 offset-md-3" >
-            <div class="topics-left">
-              <%= link_to topics_path do %>
-                <%= image_tag topic.image, class: 'topic-image' %>
-              <% end %>
+  <% if @user.topics %>
+    <div class="container">
+      <div class="topics-container">
+        <% @user.topics.each do |topic| %>
+          <div class="row">
+            <div class="col-md-2 offset-md-2" >
+              <div class="topics-left">
+                <%= link_to topics_path do %>
+                    <%= image_tag topic.image.url, class: 'topic-image' %>
+                <% end %>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="topics-right">
+                <% if topic.title %>
+                  <%= topic.title %>
+                <% else %>
+                  <p>タイトル無し</p>
+                <% end %>
+                <%= topic.contents %>
+              </div>
             </div>
           </div>
-          <div class="col-md-4">
-            <div class="topics-right">
-              <% if topic.title %>
-                <%= topic.title %>
-              <% else %>
-                <p>タイトル無し</p>
-              <% end %>
-              <%= topic.contents %>
-            </div>
-          </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
-  </div>
+  <% end %>
 </div>

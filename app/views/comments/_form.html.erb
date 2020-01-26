@@ -1,7 +1,8 @@
 <%= form_for @comment do |f| %>
   <div class="form-group">
+    <%= f.label "コメント", class: "text-white" %>
     <%= f.text_area :comment, class: "form-control" %>
     <%= f.hidden_field :topic_id, value: params[:topic_id] %>
   </div>
-  <%= f.submit "コメントする", class: "btn btn-black btn-block" %>
+  <%= f.submit "コメントする", class: "btn btn-white btn-block" %>
 <% end %>

@@ -20,6 +20,11 @@ class UsersController < ApplicationController
   def update
     @user = User.find_by(id: current_user.id)
     @user.name = user_params[:name]
+    @user.email = user_params[:email]
+    @user.image = user_params[:image]
+    @user.user_background = user_params[:user_background]
+    @user.recent_info = user_params[:recent_info]
+    
     if @user.save
       redirect_to user_path, success: "ユーザー情報を更新しました"
     else
@@ -29,8 +34,7 @@ class UsersController < ApplicationController
   end
   
   def show
-    @user = User.find_by(id: current_user.id)
-    @topics = @user.topics.all
+    @user = User.find_by(id: params[:id])
   end
   
   private

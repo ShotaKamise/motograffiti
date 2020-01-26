@@ -32,7 +32,7 @@ class CommentsController < ApplicationController
   def destroy
     @comment = Comment.find_by(id: params[:id])
     @comment.destroy
-    redirect_to topics_path, danger: "コメントを削除しました"
+    redirect_to topics_path, success: "コメントを削除しました"
   end
   
   private

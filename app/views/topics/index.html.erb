@@ -18,9 +18,7 @@
                 </h2>
               </div>
               <div class="col-md-3">
-                <%= link_to "#" do %>
-                  <p>フォローする</p>
-                <% end %>
+                <%= render "relationships/follow_button", user: topic.user %>
               </div>
             </div>
             <div class="row">
@@ -86,7 +84,7 @@
                       <%= comment.updated_at.strftime("%Y-%m-%d") %>
                       <ul>
                         <li>
-                          <%= link_to edit_comment_path(id: comment.id) do %>
+                          <%= link_to edit_comment_path(id: comment.id, topic_id: topic.id) do %>
                             <p class="edit">編集</p>
                           <% end %>
                         </li>
