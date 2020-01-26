@@ -11,9 +11,9 @@
       　     <% end %>
           </div>
           <% if @user.image %>
-          　
+          　<%= image_tag @user.image.url, class: "user-icon" %>
           <% else %>
-          　<%= image_tag '/helmet_icon.png', class: 'user-icon' %>
+          　<%= image_tag 'helmet_icon.png', class: 'user-icon' %>
           <% end %>
           <% if current_user.id == params[:id] %>
       　     <%= link_to edit_user_path(id: current_user.id) do %>

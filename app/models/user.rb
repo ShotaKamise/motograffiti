@@ -19,7 +19,11 @@ class User < ApplicationRecord
   has_many :followings, through: :relationships, source: :follow
   has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: 'follow_id'
   has_many :followers, through: :reverse_of_relationships, source: :user
-
+  has_many :from_messages, class_name: "Message", foreign_key: "from_id", dependent: :destroy
+  has_many :to_messages, class_name: "Message", foreign_key: "to_id", dependent: :destroy
+  has_many :sent_messages, through: :from_messages, source: :from
+  has_many :received_messages, through: :to_messages, source: :to 
+  
   mount_uploader :image, ImageUploader
   
   def follow(other_user)
@@ -35,5 +39,9 @@ class User < ApplicationRecord
     
   def following?(other_user)
     self.followings.include?(other_user)
+  end
+  
+  def send_message(other_user, room_id, content)
+    from_messages.create!(to_id: other_user.id, room_id: room_id, content: content)
   end
 end
