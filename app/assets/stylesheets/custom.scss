@@ -53,6 +53,24 @@
   height: 45px;
 }
 
+.sessions-new-wrapper {
+  background-image: url('signup_login.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #464646;
+
+  .users-new-container {
+    padding-top: 100px;
+    padding-bottom: 100px;
+
+    .form-group {
+      margin-bottom: 150px;
+    }
+  }
+}
+
 .users-new-wrapper {
   background-image: url('signup_login.png');
   background-position: center center;
@@ -78,13 +96,21 @@
   z-index: 10000;
 }
 
+
 .navbar {
   margin-bottom: 0px;
-  background-color: rgb(200,200,200);
-  z-index: 999;
+  background-color: rgba(255,255,255,0.8);
+  z-index: 100;
+  position: fixed;
+  width: 100%;
   a {
     color: #fff !important;
   }
+  
+  p {
+    color: black;
+  }
+  
   .navbar-brand {
     padding: 0px;
     margin-top: 8px;
@@ -123,7 +149,7 @@
 
 .topic-new-wrapper {
   padding-top: 100px;
-  padding-bottom: 100px;
+  padding-bottom: 150px;
   background-image: url('signup_login.png');
   background-position: center center;
   background-repeat: no-repeat;
@@ -132,6 +158,13 @@
   background-color: #464646;
 }
 
+.recent_info {
+    padding: 0;
+    border: solid 1px grey;
+    height: 100px;
+    text-align: center;
+    vertical-align: center;
+  }
 
 .topic-index-wrapper {
   padding-top: 70px;
@@ -143,8 +176,17 @@
     margin-top: 30px;
     border: 1px solid #e6ecf0;
     border-radius: 3px;
+    
+    h2 {
+      color: black;
+    }
+    
     .topic-author {
       padding-left: 10px;
+      padding-top: 15px;
+    }
+    
+    .follow_button {
       padding-top: 15px;
     }
     
@@ -231,37 +273,51 @@
 }
 
 .user-show-wrapper {
-
+  margin-bottom: 50px;
   .user-design {
     margin-top: 100px;
-    background-color: rgb(200,200,200);
     height: 350px;
     .user_background {
-      background-color: red;
-      height: 300px;
-      width: auto;
+      height: 400px;
+      width: 100%;
+      padding: 0;
+    }
+    
+    .btn {
+      background-color: rgb(108,155,210);
     }
     
     p {
+      color: black;
+      background-color: white;
       float: right;
       padding: 5px 10px;
       font-size: 20px;
       border: 1px solid black;
     }
     
-    .user-icon {
-      margin-top: 20px;
+    .blank {
+      border: none;
+    }
+  }  
+  
+  .user-icon {
       width: 100px;
       height: 100px;
       border: 2px solid white;
+      background-color: rgb(240,240,240);
     }
-  }  
+    
+  h4 {
+    text-align: center;
+    padding-top: 5px;
+  }
   
   .topics-container {
     margin-top: 40px;
     
-    .row {
-      margin-top: 15px;
+    .each-topic {
+      margin-top: 20px;
     }
 
   }
@@ -269,6 +325,13 @@
   .topic-image {
     width: 100px;
     height: 100px;
+    padding-top: 5px;
+  }
+  
+  .topic-contents {
+    border: 1px solid grey;
+    height: 75px;
+    padding: 5px;
   }
 
 }
@@ -297,7 +360,7 @@
 
 section.message_box {
   padding: 10px;
-  border: 1px solid $gray-light;
+  border: 1px solid grey;
   overflow: scroll;
   #messages {
     height: 400px;
@@ -315,3 +378,138 @@ div.message_form {
 #message_content {
   font-size: 1.0em;
 }
+
+.following_users-wrapper {
+  padding-top: 100px;
+  .user-icon {
+      width: 100px;
+      height: 100px;
+      background-color: rgb(240,240,240);
+    }
+    
+  h3 {
+    padding-left: 8px;
+    color: black;
+  }
+  
+  h4 {
+    margin-bottom: 35px;
+  }
+  
+  .btn {
+    margin-bottom: 5px;
+  }
+  
+  .row {
+    margin-bottom: 30px;
+  }
+}
+
+.chat-room-wrapper {
+  padding-top: 100px;
+}
+
+.message-wrapper{
+  text-align: center;
+  
+  .container {
+    
+  }
+  
+  .row {
+    margin: 0 auto;
+  }
+  
+  .user-icon {
+    width: 100px;
+    height: 100px;
+    background-color: rgb(240,240,240);
+  }
+  
+  .message-left {
+    position: relative;
+    display: inline-block;
+    margin: 1.5em 0 1.5em 15px;
+    padding: 7px 10px;
+    min-width: 120px;
+    max-width: 100%;
+    color: #555;
+    font-size: 16px;
+    background: #FFF;
+    border: solid 3px #555;
+    box-sizing: border-box;
+    border-radius: 15px;
+  }
+
+  .message-left:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -24px;
+    margin-top: -12px;
+    border: 12px solid transparent;
+    border-right: 12px solid #FFF;
+    z-index: 2;
+  }
+
+  .message-left:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -30px;
+    margin-top: -14px;
+    border: 14px solid transparent;
+    border-right: 14px solid #555;
+    z-index: 1;
+  }
+
+  .message-left p {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .message-right {
+    position: relative;
+    display: inline-block;
+    margin: 1.5em 15px 1.5em 0;
+    padding: 7px 10px;
+    min-width: 120px;
+    max-width: 100%;
+    color: #555;
+    font-size: 16px;
+    background: #FFF;
+    border: solid 3px #555;
+    box-sizing: border-box;
+    border-radius: 15px;
+  }
+  
+  .message-right:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -24px;
+    margin-top: -12px;
+    border: 12px solid transparent;
+    border-left: 12px solid #FFF;
+    z-index: 2;
+  }
+  
+  .message-right:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -30px;
+    margin-top: -14px;
+    border: 14px solid transparent;
+    border-left: 14px solid #555;
+    z-index: 1;
+  }
+  
+  .message-right p {
+    margin: 0;
+    padding: 0;
+  }
+  
+  
+}
+

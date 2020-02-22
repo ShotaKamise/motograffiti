@@ -1,0 +1,26 @@
+<div class="chat-room-wrapper">
+  <div class="container">
+    <h3>メッセージルーム</h3>
+    <div class="row">
+      <div class="col-md-12">
+        <% if @messages.present? %>
+          <div id="messages">
+            <%= render @messages %>
+          </div> 
+        <% else %>
+          <p>メッセージはありません</p>
+        <% end %>
+      </div>
+    </div>
+    <div class= "row">
+      <div class="col-md-8">
+        <%= form_with model: @message do |f| %>
+          <%= f.text_field :content, {placeholder: "メッセージを入力してください",class:'form-control'} %>
+          <%= f.hidden_field :room_id, :value => @room.id %>
+          <%= f.submit "送信", class: "btn btn-black" %>
+        <% end %>    
+      </div>
+    </div>  
+  </div>
+</div>
+

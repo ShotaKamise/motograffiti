@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  before_action :forbidden_user, {only:[:new, :create]}
+  
   def new
   end
   
@@ -6,7 +8,7 @@ class SessionsController < ApplicationController
     user = User.find_by(email: session_params[:email])
     if user && user.authenticate(session_params[:password])
       log_in user
-      redirect_to root_path, success: "ログインしました"
+      redirect_to topics_path, success: "ログインしました"
     else
       flash.now[:danger] = "ログインできませんでした"
       render :new

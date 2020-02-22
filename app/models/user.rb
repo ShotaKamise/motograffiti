@@ -8,23 +8,23 @@ class User < ApplicationRecord
   VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}+\z/i
   has_secure_password
   validates :password, length: {in: 8..32},
-                      format: { with: VALID_PASSWORD_REGEX }
+                      format: { with: VALID_PASSWORD_REGEX }, on: :create
                       
                       
   has_many :topics
   has_many :likes
-  has_many :likes_topics, through: :likes, source: "topic"
+  has_many :liked_topics, through: :likes, source: "topic"
   has_many :comments
   has_many :relationships
   has_many :followings, through: :relationships, source: :follow
   has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: 'follow_id'
   has_many :followers, through: :reverse_of_relationships, source: :user
-  has_many :from_messages, class_name: "Message", foreign_key: "from_id", dependent: :destroy
-  has_many :to_messages, class_name: "Message", foreign_key: "to_id", dependent: :destroy
-  has_many :sent_messages, through: :from_messages, source: :from
-  has_many :received_messages, through: :to_messages, source: :to 
+  has_many :messages, dependent: :destroy
+  has_many :entries, dependent: :destroy
+  
   
   mount_uploader :image, ImageUploader
+  mount_uploader :user_background, ImageUploader
   
   def follow(other_user)
     unless self == other_user
@@ -41,7 +41,4 @@ class User < ApplicationRecord
     self.followings.include?(other_user)
   end
   
-  def send_message(other_user, room_id, content)
-    from_messages.create!(to_id: other_user.id, room_id: room_id, content: content)
-  end
 end

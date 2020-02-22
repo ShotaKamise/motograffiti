@@ -1,14 +1,72 @@
-<div class="message" data-session="<%= session[:user_id] %>">
-  <% user = User.find_by(id: message.from_id) %>
-  <p class="<%= message.id %>" id="message_sender"><%= user.name %></p>
-  <p class="<%= message.id %>" id="message_content"><%= message.content %></p>
-  <script type="text/javascript">
-    var from_id = <%= message.from_id %>;
-    var current_user_id = $('.message').data('session');
-    if(from_id == current_user_id){
-      $('p.' + <%= message.id %>).css('text-align', 'right');
-    }else{
-      $('p.' + <%= message.id %>).css('text-align', 'left');
-    }
-  </script>
+<div class="message-wrapper">
+  <% if message.user != current_user %>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2">
+          <% if message.user.image.file %>
+            <%= image_tag message.user.image.url, class: "user-icon" %></br>
+          <% else %>
+            <%= image_tag 'helmet_icon.png', class: 'user-icon' %></br>
+          <% end %>
+          <p><%= message.user.name %></p>
+        </div>
+        <div class="col-md-8 message-left message-list">
+          <p class="messages" data-id=<%= message.id %>><%= message.content %></p>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 offset-md-2 message-right message-list">
+          <p class="messages" data-id=<%= message.id %>><%= message.content %></p>
+        </div>
+        <div class="col-md-2">
+          <% if message.user.image.file %>
+            <%= image_tag message.user.image.url, class: "user-icon" %></br>
+          <% else %>
+            <%= image_tag 'helmet_icon.png', class: 'user-icon' %></br>
+          <% end %>
+          <p><%= message.user.name %></p>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </div>
+<script>
+  $(function(){
+    function buildcomment(message) {
+      // 新着コメントを表示
+      if (null != message && '' != message) {
+        var messages = $('.message-list').append('<p class="messages" data-id=' + message.id + '>' + message.content + '</p>');
+      }
+    }
+  
+    $(function(){
+      //10000ミリ秒ごとにajaxで新着コメントを問合せ
+      setInterval(update, 10000);
+    });
+    function update(){
+      if($('.comments')[0]){ //もし'comments'というクラスの要素があれば
+        var message-id = $('.comments:last').data('id'); //一番最後のコメントIDを問い合わせに使う
+      } else { //ない場合は0を問い合わせに使う(最初のコメントが新着コメントとなる)
+        var message-id = 0
+      }
+      $.ajax({ //ajax通信
+        url: rooms/:id, //urlは現在のページを指定
+        type: 'GET', //メソッドを指定
+        data: { //railsに引き渡すデータは
+          message: { id: message_id, user_id: $('.user_id').val() } //このような形(paramsの形をしています)で、'id'には'comment_id'を入れる
+        },
+        dataType: 'json' //データはjson形式
+      })
+      .done(function(data){ //通信成功なら受け取ったデータ（@new_comment)を引数にとって以下のことを行う
+        $.each(data, function(i, data){ //'data'を'data'に代入してeachで回す
+          buildcomment(data); //buildcommentを呼び出す
+        });
+      })
+      .fail(function(data){ //失敗したら、何もしない
+      });
+    }
+  });
+</script>

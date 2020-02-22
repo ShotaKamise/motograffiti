@@ -1,0 +1,109 @@
+<% @search_topics.each do |stopic|%>
+  <div class="topic-index-wrapper">
+  <div class="container">
+    <% @topics.each do |topic| %>
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <div class="topic-index-single">
+            <div class="row">
+              <div class="col-md-2 offset-md-1">
+                <% if topic.user.image? %>
+                  <%= image_tag topic.user.image.url, class: "user-icon" %>
+                <% else %>
+                  <%= image_tag "/assets/bike_icon.png", class: "user-icon" %>
+                <% end %>
+              </div>  
+              <div class="col-md-4">
+                <h2 class="topic-author">
+                  <%= topic.user.name %>
+                </h2>
+              </div>
+              <div class="col-md-3">
+                <%= render "relationships/follow_button", user: topic.user %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-8 mx-auto">
+                <%= image_tag topic.image.url, class: "topic-image" %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-7 offset-md-1">
+                <p class="topic-text">
+                  <%= topic.contents %>
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-1 offset-md-1">
+                <% if !topic.like_users.include?(current_user) %>
+                  <%= link_to likes_path(topic_id: topic.id), method: :post do %>
+                    <i class="far fa-heart like-btn"></i>
+                  <% end %>
+                <% else %>
+                  <%= link_to likes_path(topic_id: topic.id), method: :delete do %>
+                    <i class="far fa-heart unlike-btn"></i>
+                  <% end %>
+                <% end %>
+              </div>
+              <div class="col-md-1">
+                <%= topic.like_users.count %>
+              </div>
+              <div class="col-md-1">
+                <%= link_to new_comment_path(topic_id: topic.id) do %>
+                  <%= image_tag "icons/comment.png", class: "comment-icon" %>
+                <% end %>
+              </div>
+              <div class="col-md-3">
+                <div class="parking_info">
+                  <label>駐輪場:</label>
+                  <%= topic.parking_info %>
+                </div>
+              </div>
+              <div class="col-md-5">
+                <label>食事情報:</label>
+                <%= topic.restaurant_info %>
+              </div>
+            </div>
+            <div class="comments">
+              <h4>コメント</h4>
+              <% topic.comments.each do |comment| %>
+                <div class="container">
+                  <div class="row">
+                    <div class="col-lg-2">
+                      <% if comment.user.image? %>
+                        <%= image_tag comment.user.image.url, class: "user-icon" %>
+                      <% else %>
+                        <%= image_tag "/assets/bike_icon.png", class: "user-icon" %>
+                      <% end %>
+                    </div>
+                    <div class="col-lg-6">
+                      <%= comment.user.name %></br>
+                      <p class="comment-contents"><%= comment.comment %></p>
+                    </div>
+                    <div class="col-lg-3">
+                      <%= comment.updated_at.strftime("%Y-%m-%d") %>
+                      <ul>
+                        <li>
+                          <%= link_to edit_comment_path(id: comment.id, topic_id: topic.id) do %>
+                            <p class="edit">編集</p>
+                          <% end %>
+                        </li>
+                        <li>
+                          <%= link_to comment_path(id: comment.id), method: :delete do %>
+                            <p>削除</p>
+                          <% end %>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<% end %>

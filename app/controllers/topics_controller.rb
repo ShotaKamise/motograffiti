@@ -1,5 +1,8 @@
 class TopicsController < ApplicationController
   
+  before_action :authenticate_user, {only: [:create, :new]}
+  before_action :ensure_correct_user, {only: [:edit, :update, :destroy]}
+  
   def index
     @topics = Topic.all.includes(:like_users).order(updated_at: "DESC")
   end
@@ -24,14 +27,16 @@ class TopicsController < ApplicationController
   end
   
   def update
-    @topic = Topic.find_by(id: topic_id)
+    @topic = Topic.find_by(id: params[:id])
     @topic.title = topic_params[:title]
-    @topic.image = topic_params[:image]
+    if topic_params[:image]
+      @topic.image = topic_params[:image]
+    end
     @topic.contents = topic_params[:contents]
     @topic.parking_info = topic_params[:parking_info]
     @topic.restaurant_info = topic_params[:restaurant_info]
     
-    if @topic.save
+    if @topic.save!
       redirect_to topics_path, success: '投稿を編集しました'
     else
       flash.now[:danger] = "編集に失敗しました"
@@ -44,9 +49,21 @@ class TopicsController < ApplicationController
     @topic.delete
     redirect_to topics_path, success: '投稿を削除しました'
   end
+  
+  def search
+   @search_topics = Topic.search(params[:search]).order(id: "DESC")
+  end
 
   private
   def topic_params
     params.require(:topic).permit(:image, :contents, :parking_info, :restaurant_info, :title)
+  end
+  
+  def ensure_correct_user
+    @topic = Topic.find_by(id: params[:id])
+    if current_user.id != @topic.user_id
+      flash[:danger] = "権限がありません。"
+      redirect_to topics_path
+    end
   end
 end

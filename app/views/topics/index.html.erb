@@ -6,19 +6,28 @@
           <div class="topic-index-single">
             <div class="row">
               <div class="col-md-2 offset-md-1">
-                <% if topic.user.image? %>
-                  <%= image_tag topic.user.image.url, class: "user-icon" %>
-                <% else %>
-                  <%= image_tag "/assets/bike_icon.png", class: "user-icon" %>
+                <%= link_to user_path(id: topic.user.id) do %>
+                  <% if topic.user.image? %>
+                    <%= image_tag topic.user.image.url, class: "user-icon" %>
+                  <% else %>
+                    <%= image_tag "/assets/helmet_icon.png", class: "user-icon" %>
+                  <% end %>
                 <% end %>
               </div>  
               <div class="col-md-4">
-                <h2 class="topic-author">
-                  <%= topic.user.name %>
-                </h2>
+                <div class="topic-author">
+                  <%= link_to user_path(id: topic.user.id) do %>
+                    <h2><%= topic.user.name %></h2>
+                  <% end %>
+                </div>
               </div>
-              <div class="col-md-3">
+              <div class="col-md-3 follow_button">
                 <%= render "relationships/follow_button", user: topic.user %>
+                <% if current_user == topic.user %>
+                  <%= link_to edit_topic_path(id: topic.id) do %>
+                    <btn>投稿の編集</btn>
+                  <% end %>
+                <% end %>
               </div>
             </div>
             <div class="row">
@@ -70,10 +79,12 @@
                 <div class="container">
                   <div class="row">
                     <div class="col-lg-2">
-                      <% if comment.user.image? %>
-                        <%= image_tag comment.user.image.url, class: "user-icon" %>
-                      <% else %>
-                        <%= image_tag "/assets/bike_icon.png", class: "user-icon" %>
+                      <%= link_to user_path(id: comment.user.id) do %>
+                        <% if comment.user.image? %>
+                          <%= image_tag comment.user.image.url, class: "user-icon" %>
+                        <% else %>
+                          <%= image_tag "/assets/helmet_icon.png", class: "user-icon" %>
+                        <% end %>
                       <% end %>
                     </div>
                     <div class="col-lg-6">
@@ -82,18 +93,20 @@
                     </div>
                     <div class="col-lg-3">
                       <%= comment.updated_at.strftime("%Y-%m-%d") %>
-                      <ul>
-                        <li>
-                          <%= link_to edit_comment_path(id: comment.id, topic_id: topic.id) do %>
-                            <p class="edit">編集</p>
-                          <% end %>
-                        </li>
-                        <li>
-                          <%= link_to comment_path(id: comment.id), method: :delete do %>
-                            <p>削除</p>
-                          <% end %>
-                        </li>
-                      </ul>
+                      <% if current_user.id == comment.user_id %>
+                        <ul>
+                          <li>
+                            <%= link_to edit_comment_path(id: comment.id, topic_id: topic.id) do %>
+                             <p class="edit">編集</p>
+                            <% end %>
+                          </li>
+                          <li>
+                            <%= link_to comment_path(id: comment.id), method: :delete do %>
+                              <p>削除</p>
+                            <% end %>
+                          </li>
+                        </ul>
+                      <% end %>
                     </div>
                   </div>
                 </div>

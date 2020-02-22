@@ -11,4 +11,19 @@ class ApplicationController < ActionController::Base
   def logged_in?
     !current_user.nil?
   end
+  
+  def authenticate_user
+    if current_user == nil
+      flash[:danger] = "ログインが必要です"
+      redirect_to login_path
+    end
+  end
+  
+  def forbidden_user
+    if current_user != nil
+      flash[:danger] = "ログイン済みです"
+      redirect_to topics_path
+    end
+  end
+  
 end

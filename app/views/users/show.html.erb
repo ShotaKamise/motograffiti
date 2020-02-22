@@ -3,28 +3,53 @@
     <div class="row">
       <div class="col-md-8 mx-auto">
         <div class="user-design">
+          <div class="row">
+            <div class="col-md-4 offset-md-5">
+              <%= link_to "/relationships/#{params[:id]}/index" do %>
+                <p class="btn btn-black">フォローユーザー</p>
+              <% end %>
+            </div>
+            <div class="col-md-2 offset-md-1">
+              <% if current_user != @user %>
+                <% if @isRoom == true %>
+                  <%= link_to "/rooms/#{@roomId}" do %>
+                    <p class="btn btn-black">メッセージ</p>
+                  <% end %>
+                <% else %>
+                  <%= form_with model: @room, local: true do |f|%>
+                    <%= hidden_field_tag :user_id, @user.id %>
+                    <p class="btn btn-black"><%= f.submit "メッセージを始める" %></p>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
           <div class="col-md-12 mx-auto">
             <% if @user.user_background %>
               <%= image_tag @user.user_background.url, class: 'user_background' %>
             <% else %>
-              <%= image_tag "icons/default.png", class: 'user_background' %>
+              <%= image_tag "topic2_image.jpg", class: 'user_background' %>
       　     <% end %>
           </div>
-          <% if @user.image %>
-          　<%= image_tag @user.image.url, class: "user-icon" %>
-          <% else %>
-          　<%= image_tag 'helmet_icon.png', class: 'user-icon' %>
-          <% end %>
-          <% if current_user.id == params[:id] %>
-      　     <%= link_to edit_user_path(id: current_user.id) do %>
-        　     <p>ユーザー編集</p>
-      　     <% end %>
-          <% end %>
+            <% if current_user == @user %>
+              <%= link_to edit_user_path(id: current_user.id) do %>
+        　       <p class="btn-black">ユーザー編集</p>     
+      　       <% end %>
+      　     <% else %>
+              <p class="blank"></p>
+            <% end %>
         </div>
       </div>
-    </div>
+    </div>   
     <div class="row">
-      <div class="col-md-4 offset-md-4">
+      <div class="col-md-2 offset-md-3">
+        <% if @user.image.file %>
+          <%= image_tag @user.image.url, class: "user-icon" %>
+        <% else %>
+          <%= image_tag 'helmet_icon.png', class: 'user-icon' %>
+        <% end %>
+      </div>
+      <div class="col-md-4">
         <div class="recent_info">
           <% if @user.recent_info %>
             <%= @user.recent_info %>
@@ -34,30 +59,36 @@
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col-md-1 offset-md-3">
+        <h4 class="user-name"><%= @user.name %></h4>
+      </div>
+    </div>
   </div>
   <% if @user.topics %>
     <div class="container">
       <div class="topics-container">
         <% @user.topics.each do |topic| %>
+        <div class="each-topic">
           <div class="row">
             <div class="col-md-2 offset-md-2" >
-              <div class="topics-left">
-                <%= link_to topics_path do %>
-                    <%= image_tag topic.image.url, class: 'topic-image' %>
-                <% end %>
-              </div>
+              <%= link_to topics_path do %>
+                <%= image_tag topic.image.url, class: 'topic-image' %>
+              <% end %>
             </div>
             <div class="col-md-6">
-              <div class="topics-right">
-                <% if topic.title %>
-                  <%= topic.title %>
-                <% else %>
-                  <p>タイトル無し</p>
-                <% end %>
+              <label>タイトル：</label>
+              <% if topic.title %>
+                <%= topic.title %>
+              <% else %>
+                タイトル無し
+              <% end %>
+              <div class="topic-contents">
                 <%= topic.contents %>
               </div>
             </div>
           </div>
+        </div>
         <% end %>
       </div>
     </div>
