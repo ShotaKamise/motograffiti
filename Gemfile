@@ -39,7 +39,7 @@ gem "pry-rails"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'bootstrap','~> 4.0.0.alpha3'
+gem 'bootstrap','~> 4.3.1'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
