@@ -25,7 +25,26 @@ class RelationshipsController < ApplicationController
   end
   
   def index
-    @following_users = Relationship.where(user_id: params[:id])
+    @following_users = Relationship.where(user_id: params[:id]).order(created_at: "DESC")
+    @following_users.each do |following_user|
+      @currentUserEntry = Entry.where(user_id: current_user.id)
+      @userEntry = Entry.where(user_id: following_user.id)
+      
+      unless following_user.id == current_user.id
+        @currentUserEntry.each do |cu|
+          @userEntry.each do |u|
+            if cu.room_id == u.room_id then
+              @isRoom = true
+              @roomId = cu.room_id
+            end
+          end
+        end
+        unless @isRoom
+          @room = Room.new
+          @entry = Entry.new
+        end
+      end
+    end
   end
   
   private

@@ -4,7 +4,7 @@ class TopicsController < ApplicationController
   before_action :ensure_correct_user, {only: [:edit, :update, :destroy]}
   
   def index
-    @topics = Topic.all.includes(:like_users).order(updated_at: "DESC")
+    @topics = Topic.all.includes(:like_users, :comments).order(created_at: "DESC")
   end
   
   def new
@@ -51,7 +51,7 @@ class TopicsController < ApplicationController
   end
   
   def search
-   @search_topics = Topic.search(params[:search]).order(id: "DESC")
+   @search_topics = Topic.search(params[:search]).includes(:like_users, :comments).order(id: "DESC")
   end
 
   private

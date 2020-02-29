@@ -6,10 +6,11 @@
         <% if @messages.present? %>
           <div id="messages">
             <%= render @messages %>
-          </div> 
+          </div>
         <% else %>
           <p>メッセージはありません</p>
         <% end %>
+        <div class="new_message"></div>
       </div>
     </div>
     <div class= "row">
@@ -23,4 +24,41 @@
     </div>  
   </div>
 </div>
+<script>
+  $(function(){
+    function buildMessage(message) {
+      // 新着コメントを表示
+      if (null != message && '' != message) {
+        var messages = $('.new_message').append( '<p class="messages" data-id=' + message.id +'>新着メッセージがあります</p>' );
+      }
+    }
+  
+    $(function(){
+      //10000ミリ秒ごとにajaxで新着コメントを問合せ
+      setInterval(update, 10000);
+    });
+    function update(){
+      if($('.messages')[0]){ //もし'comments'というクラスの要素があれば
+        var message_id = $('.messages:last').data('id'); //一番最後のコメントIDを問い合わせに使う
+      } else { //ない場合は0を問い合わせに使う(最初のコメントが新着コメントとなる)
+        var message_id = 0
+      }
+      $.ajax({ //ajax通信
+        url: location.href, //urlは現在のページを指定
+        type: 'GET', //メソッドを指定
+        data: { //railsに引き渡すデータは
+          message: { id: message_id, room_id: <%= @room.id %> } //このような形(paramsの形をしています)で、'id'には'comment_id'を入れる
+        },
+        dataType: 'json' //データはjson形式
+      })
+      .done(function(data){ //通信成功なら受け取ったデータ（@new_comment)を引数にとって以下のことを行う
+        $.each(data, function(i, data){ //'data'を'data'に代入してeachで回す
+          buildMessage(data); //buildcommentを呼び出す
+        });
+      })
+      .fail(function(data){ //失敗したら、何もしない
+      });
+    }
+  });
+</script>
 

@@ -4,7 +4,7 @@
     <% @following_users.each do |following_user| %>
       <div class="row">
           <div class="col-md-2 offset-md-1">
-            <%= link_to user_path(id: following_user.id) do %>
+            <%= link_to user_path(id: following_user.follow_id) do %>
               <% if following_user.followed_user.image.file %>
                 <%= image_tag following_user.followed_user.image.url, class: "user-icon" %>
               <% else %>
@@ -16,17 +16,26 @@
           <div class="col-md-5">
             <div class="recent_info">
               <% if following_user.followed_user.recent_info %>
-                <%= following_user.followed_user.recent_info %>
+                <p><%= following_user.followed_user.recent_info %></p>
               <% else %>
           　     <p>近況を報告</p>
               <% end %>
             </div>
           </div>
-          <div class="col-md-2 offset-md-1 follow_button">
+          <div class="col-md-3 follow_button">
             <% if following_user.user_id == current_user.id %>
               <%= render "relationships/follow_button", user: following_user.followed_user %>
+              <% if @isRoom == true %>
+                <%= link_to "/rooms/#{@roomId}" do %>
+                  <p class="link_to_message btn btn-primary btn-block">メッセージ</p>
+                <% end %>
+              <% else %>
+                <%= form_with model: @room, local: true do |f|%>
+                  <%= hidden_field_tag :user_id, following_user.user_id %>
+                  <%= f.submit "メッセージ", class: "link_to_message btn btn-primary btn-block" %>
+                <% end %>
+              <% end %>
             <% end %>
-            <p class="link_to_message btn btn-primary btn-block">メッセージへのリンク</p>
           </div>
         </div>
     <% end %>

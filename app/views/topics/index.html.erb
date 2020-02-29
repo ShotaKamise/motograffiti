@@ -15,7 +15,7 @@
                 <% end %>
               </div>  
               <div class="col-md-4">
-                <div class="topic-author">
+                <div class="topic-writer">
                   <%= link_to user_path(id: topic.user.id) do %>
                     <h2><%= topic.user.name %></h2>
                   <% end %>
@@ -36,7 +36,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-7 offset-md-1">
+              <div class="col-md-10 offset-md-1">
                 <p class="topic-text">
                   <%= topic.contents %>
                 </p>

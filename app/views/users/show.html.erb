@@ -4,12 +4,20 @@
       <div class="col-md-8 mx-auto">
         <div class="user-design">
           <div class="row">
-            <div class="col-md-4 offset-md-5">
-              <%= link_to "/relationships/#{params[:id]}/index" do %>
-                <p class="btn btn-black">フォローユーザー</p>
-              <% end %>
-            </div>
-            <div class="col-md-2 offset-md-1">
+            <% if current_user != @user %>
+              <div class="col-md-4 offset-md-4">
+                <%= link_to "/relationships/#{params[:id]}/index" do %>
+                  <p class="btn btn-black">フォローユーザー</p>
+                <% end %>
+              </div>
+            <% else %>
+              <div class="col-md-4 offset-md-8">
+                <%= link_to "/relationships/#{params[:id]}/index" do %>
+                  <p class="btn btn-black">フォローユーザー</p>
+                <% end %>
+              </div>
+            <% end %>
+            <div class="col-md-3 offset-md-1">
               <% if current_user != @user %>
                 <% if @isRoom == true %>
                   <%= link_to "/rooms/#{@roomId}" do %>
@@ -18,14 +26,14 @@
                 <% else %>
                   <%= form_with model: @room, local: true do |f|%>
                     <%= hidden_field_tag :user_id, @user.id %>
-                    <p class="btn btn-black"><%= f.submit "メッセージを始める" %></p>
+                    <%= f.submit "メッセージ", class: "btn start-message" %>
                   <% end %>
                 <% end %>
               <% end %>
             </div>
           </div>
           <div class="col-md-12 mx-auto">
-            <% if @user.user_background %>
+            <% if @user.user_background.file %>
               <%= image_tag @user.user_background.url, class: 'user_background' %>
             <% else %>
               <%= image_tag "topic2_image.jpg", class: 'user_background' %>
@@ -68,7 +76,7 @@
   <% if @user.topics %>
     <div class="container">
       <div class="topics-container">
-        <% @user.topics.each do |topic| %>
+        <% @user.topics.order(created_at: "DESC").each do |topic| %>
         <div class="each-topic">
           <div class="row">
             <div class="col-md-2 offset-md-2" >

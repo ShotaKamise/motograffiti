@@ -6,18 +6,6 @@ class MessagesController < ApplicationController
     else
       redirect_to user_path(id: params[:user_id])
     end
-    
-    #@message = Message.new(message_params)
-    #if @message.save
-        #redirect_to topics_path, success: "コメントしました"
-    #else
-      #flash.now[:danger] = "コメント出来ませんでした"
-      #render :new
-    #end
-  end
-  
-  def show
-    @message = Message.new
   end
   
   private

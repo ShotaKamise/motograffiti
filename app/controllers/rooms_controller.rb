@@ -1,4 +1,6 @@
 class RoomsController < ApplicationController
+  before_action :authenticate_user, {only: [:create, :show]}
+  
   def create
     @room = Room.create
     @entry1 = Entry.create(:room_id => @room.id, :user_id => current_user.id)
@@ -23,16 +25,14 @@ class RoomsController < ApplicationController
           if @messages.count > 0
             lastMessageId = @messages.last.id;
           end
+          
         else
           redirect_to user_path(id: params[:user_id])
         end
       }
         
       format.json {
-        newmessages = Message.where('id > ? AND room_id = ?', params[:message][:id], params[:message][:room_id])
-        newmessages.each do |newmessage|
-          @newmessage = newmessage
-        end
+        @newmessages = Message.where('id > ? AND room_id = ?', params[:message][:id], params[:message][:room_id])
       }
     end
   end
