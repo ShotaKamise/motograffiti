@@ -109,6 +109,9 @@
   
   p {
     color: black;
+    margin-left: 30px;
+    padding-top: 10px;
+    
   }
   
   .navbar-brand {
@@ -159,15 +162,19 @@
 }
 
 .recent_info {
-    padding: 0;
     border: solid 1px grey;
     height: 100px;
     text-align: center;
-  }
+}
+
+.original_recent_info {
+  margin-top: 15px;
+}
 
 .topic-index-wrapper {
   padding-top: 70px;
   background-color: #fafafa;
+  
   .topic-index-single {
     background-color: #fff;
     padding-top: 20px;
@@ -282,6 +289,7 @@
       padding: 0;
     }
     
+    
     .btn {
       background-color: rgb(108,155,210);
     }
@@ -340,6 +348,12 @@
     height: 75px;
     padding: 5px;
   }
+
+  .fa-circle {
+    color: blue;
+    height: 3px;
+    width: 3px;
+    }
 
 }
 

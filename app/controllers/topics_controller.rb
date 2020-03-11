@@ -1,7 +1,8 @@
 class TopicsController < ApplicationController
   
-  before_action :authenticate_user, {only: [:create, :new]}
+  before_action :authenticate_user, {only: [:create, :new, :index]}
   before_action :ensure_correct_user, {only: [:edit, :update, :destroy]}
+  
   
   def index
     @topics = Topic.all.includes(:like_users, :comments).order(created_at: "DESC")
@@ -66,4 +67,5 @@ class TopicsController < ApplicationController
       redirect_to topics_path
     end
   end
+  
 end
